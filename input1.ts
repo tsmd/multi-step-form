@@ -22,10 +22,12 @@ export function input1Handler(req: express.Request, res: express.Response) {
     }
   }
 
-  const next =
-    req.body.from === "confirm" || req.body.next === "/confirm"
-      ? "/confirm"
-      : "/input/2";
+  let next = "/input/2";
+  if (req.body.from === "input2") {
+    next = "/input/2";
+  } else if (req.body.from === "confirm" || req.body.next === "/confirm") {
+    next = "/confirm";
+  }
 
   // language=HTML
   res.send(`<!DOCTYPE html>
@@ -52,7 +54,7 @@ export function input1Handler(req: express.Request, res: express.Response) {
     ${renderHidden(req.body, ["given_name"])}
     <input type="hidden" name="from" value="input1"/>
     <input type="hidden" name="next" value="${next}"/>
-    <input type="submit" value="Next"/>
+    <p><input type="submit" value="Next"/></p>
   </form>
 </body>
 </html>`);

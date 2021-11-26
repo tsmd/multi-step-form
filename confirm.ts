@@ -21,7 +21,8 @@ export const confirmHandler = (req: express.Request, res: express.Response) => {
     </p>
     ${renderHidden(req.body)}
     <input type="hidden" name="from" value="confirm"/>
-    <input type="submit" value="Submit"/>
+    <p><input type="submit" value="Submit"/></p>
+    <p><input type="submit" formaction="/input/2" value="Back"/></p>
   </form>
 </body>
 </html>`);

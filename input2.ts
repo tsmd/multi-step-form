@@ -48,7 +48,8 @@ export function input2Handler(req: express.Request, res: express.Response) {
     ${renderHidden(req.body, ["family_name"])}
     <input type="hidden" name="from" value="input2"/>
     <input type="hidden" name="next" value="/confirm"/>
-    <input type="submit" value="Next"/>
+    <p><input type="submit" value="Confirm"/></p>
+    <p><input type="submit" formaction="/input" value="Back"/></p>
   </form>
 </body>
 </html>`);
