@@ -17,16 +17,9 @@ export function input1Handler(req: express.Request, res: express.Response) {
   if (req.body.from === "input1") {
     result = validateInput1(req.body);
     if (result.result) {
-      res.redirect(307, req.body.next);
+      res.redirect(307, req.body.mode === "edit" ? "/confirm" : "/input/2");
       return;
     }
-  }
-
-  let next = "/input/2";
-  if (req.body.from === "input2") {
-    next = "/input/2";
-  } else if (req.body.from === "confirm" || req.body.next === "/confirm") {
-    next = "/confirm";
   }
 
   // language=HTML
@@ -53,8 +46,11 @@ export function input1Handler(req: express.Request, res: express.Response) {
     </p>
     ${renderHidden(req.body, ["given_name"])}
     <input type="hidden" name="from" value="input1"/>
-    <input type="hidden" name="next" value="${next}"/>
-    <p><input type="submit" value="Next"/></p>
+    ${
+      req.body.mode === "edit"
+        ? `<p><button type="submit" name="mode" value="edit">Confirm</button></p>`
+        : `<p><button type="submit" name="mode" value="flow">Next</button></p>`
+    }
   </form>
 </body>
 </html>`);
